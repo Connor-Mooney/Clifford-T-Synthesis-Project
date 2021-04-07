@@ -12,7 +12,7 @@ class Operator:
   
   def gen_res(self):
     """Generates the residue of this operator"""
-    return None
+    return [self.matrix[0] % 2, self.matrix[1] % 2]
   
   def transpose(mat):
     """returns the transpose of a matrix"""
@@ -30,9 +30,9 @@ class Operator:
     
     for i in range(self.matrix[0].length):
       for j in range(self.matrix[0][0].length):
-        permclass[i][j] = (self.matrix[0][i][j], self.matrix[1][i][j])
+        permclass[i][j] = (self.matrix[0][i,j], self.matrix[1][i,j])
    
-   return [self.tcount, transpose(sorted(transpose(permclass)))]
+    return [self.tcount, transpose(sorted(transpose(permclass)))]
     
  
   def dot(self, op2):
@@ -41,5 +41,7 @@ class Operator:
     mat0 = np.matmul(self.matrix[0],op2.matrix[0]) + 2*np.matmul(self.matrix[1],op2.matrix[1])
     mat1 = np.matmul(self.matrix[0],op2.matrix[1]) + np.matmul(self.matrix[1],op2.matrix[0])
     newmat = [mat0, mat1]
+    while np.all(newmat[0] % 2 == 0):
+      # NEED TO REDUCE THIS DOWN TO MOST SIMPLIFIED MATRIX
     return None
     
