@@ -41,7 +41,11 @@ class Operator:
     mat0 = np.matmul(self.matrix[0],op2.matrix[0]) + 2*np.matmul(self.matrix[1],op2.matrix[1])
     mat1 = np.matmul(self.matrix[0],op2.matrix[1]) + np.matmul(self.matrix[1],op2.matrix[0])
     newmat = [mat0, mat1]
+    newname = self.name + " " + op2.name
     while np.all(newmat[0] % 2 == 0):
       # NEED TO REDUCE THIS DOWN TO MOST SIMPLIFIED MATRIX
-    return None
+      mat0 = np.copy(newmat[1])
+      mat1 = np.copy(newmat[0])/2
+      newmat = [mat0, mat1]
+    return Operator(tcountnew, newmat, 
     
