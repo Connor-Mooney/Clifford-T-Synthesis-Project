@@ -3,9 +3,9 @@ import numpy as np
 class Operator:
   """This class represents a matrix in SO6(Z[1/sqrt(2)]), storing the name of the operator, i.e. a string of T operators, its actual matrix, its residue, 
   and its column-permutation-invariant class"""
-  def __init__(self, tcount, mat,name):
+  def __init__(self, LDE, mat,name):
     self.matrix = mat
-    self.tcount = tcount
+    self.LDE = LDE
     self.name = name
     self.residue = self.gen_res()
     self.permclass = self.column_perm_class()
@@ -37,7 +37,7 @@ class Operator:
  
   def dot(self, op2):
     """multiplies this operator with another"""
-    tcountnew = self.tcount + op2.tcount
+    LDENew = self.LDE + op2.LDE
     mat0 = np.matmul(self.matrix[0],op2.matrix[0]) + 2*np.matmul(self.matrix[1],op2.matrix[1])
     mat1 = np.matmul(self.matrix[0],op2.matrix[1]) + np.matmul(self.matrix[1],op2.matrix[0])
     newmat = [mat0, mat1]
@@ -47,5 +47,6 @@ class Operator:
       mat0 = np.copy(newmat[1])
       mat1 = np.copy(newmat[0])/2
       newmat = [mat0, mat1]
-    return Operator(tcountnew, newmat, 
+      LDENew = LDENew - 1
+    return Operator(LDE, newmat, newname) 
     
