@@ -1,4 +1,6 @@
-from Operator import Operator
+from Ops.operator import Operator
+import numpy as np
+
 # THIS FILE WILL HAVE THE MAIN MACHINERY WORKING
 Patterns = [[],[],[],[],[]]
 alls = []
@@ -22,11 +24,12 @@ for i in range(6):
         alls.append(op.permclass)
 print(len(Patterns[0]))
 
-for i in range(1,5):
-  for t in Patterns[i-1]:
-    for op in Patterns[i-1]:
-     prod = t.dot(op)
-     if prod.permclass not in alls:
-        Patterns[i-1].append(prod)
-        alls.append(prod.permclass)
-
+for i in range(1,2):
+    for t in Patterns[i-1]:
+        for op in Patterns[i-1]:
+            prod = t.dot(op)
+            if prod.permclass not in alls:
+                if prod.LDE != 0:
+                    Patterns[i].append(prod)
+                    alls.append(prod.permclass)
+    print(len(Patterns[i]))
