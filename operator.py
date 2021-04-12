@@ -48,5 +48,5 @@ class Operator:
       mat1 = np.copy(newmat[0])/2
       newmat = [mat0, mat1]
       LDENew = LDENew - 1
-    return Operator(LDE, newmat, newname) 
+    return Operator(LDENew, newmat, newname) 
     
