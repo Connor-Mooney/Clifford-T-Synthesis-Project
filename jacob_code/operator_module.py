@@ -1,4 +1,8 @@
-# -*- coding: utf-8 -*-
+"""
+This module defines the Operator class as well as various useful functions
+involving the Operator class.
+"""
+
 import numpy as np
 from copy import deepcopy
 
@@ -142,13 +146,14 @@ def is_perm(op1,op2):
     # Checks if they have the same denominator exponent
     if op1.k != op2.k:
         return False
-    # Checks if they have the same columns
+    # Checks if they have the same column strings (which are column-permutation invariant)
     if op1.col_str == op2.col_str:
         return True
     return False
 
 # NOTE: This method is comparatively slow, so it does not need to be used.
-# Checks if two operators have SO(6) operators that are identical up to column (not row) permutation via matrix multiplication.
+# Checks if two operators have SO(6) operators that are identical 
+# up to column (not row) permutation via matrix multiplication.
 # def is_perm_alt(op1,op2):
 #     op1_mat = op1.matrix
 #     op1_mat_trans = np.array([np.transpose(op1_mat[0]),np.transpose(op1_mat[1])])

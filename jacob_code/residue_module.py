@@ -1,4 +1,7 @@
-# -*- coding: utf-8 -*-
+"""
+This module provides a number of functions that are useful for generating residues.
+"""
+
 import numpy as np
 from numpy import sqrt
 from itertools import permutations

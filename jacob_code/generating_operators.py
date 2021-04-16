@@ -1,4 +1,8 @@
-# -*- coding: utf-8 -*-
+"""
+This program defines several functions that generate arrays of successively
+larger T-count operators.
+"""
+
 import numpy as np
 from time import time
 import operator_module as opm

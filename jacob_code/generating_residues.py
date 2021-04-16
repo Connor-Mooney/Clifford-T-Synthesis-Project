@@ -1,4 +1,7 @@
-# -*- coding: utf-8 -*-
+"""
+This program defines a method for generating an array of all unique residues.
+"""
+
 import numpy as np
 from time import time
 import residue_module as rem
