@@ -7,7 +7,7 @@ import numpy as np
 from time import time
 import operator_module as opm
 
-# Generates a list of the T1 operators
+# Generates a list of the 15 T1 operators
 def generate_T1(save=False, load=False):
     if load:
         return opm.read_operators('T1.txt')
@@ -38,6 +38,7 @@ def generate_T1(save=False, load=False):
     return T1
 
 # Generates a list of T2 operators
+# Takes 0.07 s to generate 165 operators
 def generate_T2(save=False, load=False):
     if load:
         return opm.read_operators('T2.txt')
@@ -49,7 +50,7 @@ def generate_T2(save=False, load=False):
             if prod.k == 0:
                 continue
             T2.append(prod)
-            for prev in np.concatenate((T1,T2[:-1])):
+            for prev in T2[:-1]:
                 if opm.is_perm(prev,prod):
                     T2.pop()
     T2 = np.array(T2)
@@ -75,6 +76,7 @@ def generate_T2(save=False, load=False):
     return T2
 
 # Generates a list of T3 operators
+# Takes 0.9 s to generate 1806 operators
 def generate_T3(save=False, load=False):
     if load:
         return opm.read_operators('T3.txt')
@@ -87,10 +89,6 @@ def generate_T3(save=False, load=False):
                 continue
             T3.append(prod)
             for prev in T1:
-                if opm.is_perm(prev,prod):
-                    T3.pop()
-                    continue
-            for prev in T2:
                 if opm.is_perm(prev,prod):
                     T3.pop()
                     continue
@@ -125,6 +123,7 @@ def generate_T3(save=False, load=False):
     return T3
 
 # Generates a list of T4 operators
+# Takes 55 s to generate 18624 operators
 def generate_T4(save=False, load=False):
     if load:
         return opm.read_operators('T4.txt')
@@ -136,9 +135,14 @@ def generate_T4(save=False, load=False):
             if prod.k == 0:
                 continue
             T4.append(prod)
-            for prev in np.concatenate((T1,T2,T3,T4[:-1])):
+            for prev in T2:
                 if opm.is_perm(prev,prod):
                     T4.pop()
+                    continue
+            for prev in T4[:-1]:
+                if opm.is_perm(prev,prod):
+                    T4.pop()
+                    continue
     T4 = np.array(T4)
     if save:
         opm.save_operators(T4, 'T4.txt')
@@ -169,26 +173,31 @@ def generate_T4(save=False, load=False):
     print(f'total = {len(k0)+len(k1)+len(k2)+len(k3)+len(k4)}')
     return T4
 
+# Generates a list of T5 operators
+# Takes 6700 s to generate 188877 operators
 def generate_T5(save=False, load=False):
     if load:
         return opm.read_operators('T5.txt')
     start = time()
     T5 = []
-    index = 0
-    total = len(T1)*len(T4)
     for t in T1:
         for op in T4:
-            index += 1
-            if index % int(total * 0.1) == 0:
-                dt = time()-start
-                print(f'{dt:.2f} {index}')
             prod = opm.dot(t,op)
             if prod.k == 0:
                 continue
             T5.append(prod)
+            for prev in T1:
+                if opm.is_perm(prev,prod):
+                    T5.pop()
+                    continue
+            for prev in T3:
+                if opm.is_perm(prev,prod):
+                    T5.pop()
+                    continue
             for prev in T5[:-1]:
                 if opm.is_perm(prev,prod):
                     T5.pop()
+                    continue
     T5 = np.array(T5)
     if save:
         opm.save_operators(T5, 'T5.txt')
@@ -225,7 +234,11 @@ def generate_T5(save=False, load=False):
 
 
 
-T1 = generate_T1(load=True)
-T2 = generate_T2(load=True)
-T3 = generate_T3()
-T4 = generate_T4()
+# T1 = generate_T1()
+# T2 = generate_T2()
+# T3 = generate_T3()
+# T4 = generate_T4()
+# T5 = generate_T5()
+
+def is_col_perm()
+
