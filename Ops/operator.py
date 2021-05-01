@@ -21,7 +21,16 @@ class Operator:
         vOut.append([mat[j][i] for j in range(len(mat))])
     return vOut
   
-
+  def display(self):
+    """Displays the matrix as a string"""
+    s = ""
+    s + = "1/√2^{}".format(self.LDE)
+    for i in range(6):
+      s += "["
+      for j in range(6):
+        s + = "{} + {}√2".format(self.mat[0][i,j], self.mat[1][i,j])
+      s += "] \n"
+    return s
   
   def column_perm_class(self):
     """Generates the permutation class of this operator"""
